@@ -147,6 +147,7 @@ html {
 }
 
 body {
+  overflow-x: clip;
   margin: 0;
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -305,6 +306,20 @@ button svg, a svg {
 .mobile-data-field:last-child { border-bottom: 0; }
 .empty-clear-button { display: block; margin: -24px auto 24px; color: var(--info); font-size: 13px; font-weight: 600; min-height: 44px; }
 .order-drawer { animation: drawerIn 320ms cubic-bezier(.22, 1, .36, 1) both; }
+.reactbits-blur-unit { display: inline-block; white-space: pre; }
+.reactbits-glare { position: relative; overflow: hidden; contain: paint; }
+.reactbits-glare-sheen { position: absolute; inset: -40%; pointer-events: none; opacity: 0; background: linear-gradient(105deg, transparent 42%, color-mix(in srgb, var(--accent) 24%, transparent) 50%, transparent 58%); transform: translateX(-55%) rotate(12deg); transition: opacity 180ms ease, transform 500ms cubic-bezier(.22, 1, .36, 1); }
+.reactbits-glare:hover .reactbits-glare-sheen { opacity: 1; transform: translateX(55%) rotate(12deg); }
+.reactbits-cta { display: inline-flex; border-radius: 0.5rem; }
+.reactbits-cta .reactbits-glare-sheen { background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.24) 50%, transparent 58%); }
+.dashboard-hero { position: relative; isolation: isolate; }
+.dashboard-dot-grid { position: absolute; z-index: -1; inset: -32px -32px auto; width: calc(100% + 64px); height: 260px; opacity: .65; pointer-events: none; mask-image: linear-gradient(to bottom, black, transparent); }
+.reactbits-stepper { display: flex; flex-direction: column; gap: 16px; }
+.reactbits-step { display: flex; align-items: flex-start; gap: 12px; min-height: 40px; }
+.reactbits-step-dot { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; flex: 0 0 32px; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--surface-raised); color: var(--text-tertiary); }
+.reactbits-step-dot.is-complete { border-color: var(--success); background: var(--success); color: white; box-shadow: 0 0 14px color-mix(in srgb, var(--success) 25%, transparent); }
+.reactbits-step-line { position: relative; width: 2px; height: 24px; margin: 4px 0 0 15px; background: var(--border); overflow: hidden; }
+.reactbits-step-line span { display: block; width: 100%; height: 100%; background: var(--success); transform-origin: top; }
 
 .nav-item {
   min-height: 44px;
@@ -360,6 +375,7 @@ button svg, a svg {
   .page-header h2 { font-size: 24px; line-height: 30px; }
   .dashboard-kpis > .meridian-card { min-height: 0; }
   .order-drawer { max-width: none; width: 100%; border-left: 0; }
+  .dashboard-dot-grid { display: none; }
 }
 
 @media (max-width: 1023px) {

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import clsx from 'clsx'
+import CountUp from '../reactbits/CountUp'
+import GlareHover from '../reactbits/GlareHover'
 
 export function Card({ children, className, padding = true, ...props }) {
   return (
-    <div
+    <GlareHover
       className={clsx(
         'meridian-card rounded-card bg-surface border border-border shadow-card transition-theme',
         padding && 'p-5',
@@ -12,7 +14,7 @@ export function Card({ children, className, padding = true, ...props }) {
       {...props}
     >
       {children}
-    </div>
+    </GlareHover>
   )
 }
 
@@ -35,27 +37,11 @@ export function MetricCard({ label, value, change, trend, prefix, suffix, icon, 
   const changeColor = isUp ? 'text-success' : isDown ? 'text-danger' : 'text-text-tertiary'
   const changeIcon = isUp ? '↑' : isDown ? '↓' : '→'
 
-  const [displayValue, setDisplayValue] = useState('0')
   const rawValue = String(value)
   const numericValue = Number(rawValue.replace(/[^0-9.]/g, ''))
   const hasDecimal = rawValue.includes('.')
   const derivedPrefix = prefix ?? rawValue.match(/^[^0-9]*/)?.[0]
   const derivedSuffix = suffix ?? rawValue.match(/[^0-9.]+$/)?.[0]
-
-  useEffect(() => {
-    let frame
-    const start = performance.now()
-    const duration = 900
-    const tick = (now) => {
-      const progress = Math.min((now - start) / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      const next = numericValue * eased
-      setDisplayValue(hasDecimal ? next.toFixed(1) : Math.round(next).toLocaleString())
-      if (progress < 1) frame = requestAnimationFrame(tick)
-    }
-    frame = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(frame)
-  }, [numericValue, hasDecimal])
 
   return (
     <Card className={clsx('metric-card', accent && 'metric-card-featured border-accent/30')}>
@@ -63,7 +49,7 @@ export function MetricCard({ label, value, change, trend, prefix, suffix, icon, 
         <div>
           <p className="text-sm font-medium text-text-tertiary">{label}</p>
           <p className="mt-2 text-3xl font-bold tracking-tight text-text-primary">
-            {derivedPrefix}<span>{displayValue}</span>{derivedSuffix}
+            {derivedPrefix}<CountUp to={numericValue} decimals={hasDecimal ? 1 : 0} className="inline-block" />{derivedSuffix}
           </p>
           {change != null && (
             <p className={clsx('mt-1.5 text-xs font-medium flex items-center gap-1', changeColor)}>

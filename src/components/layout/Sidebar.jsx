@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
+import { motion } from 'motion/react'
 import {
   LayoutDashboard, Users, Package, ShoppingBag, Tag,
   BarChart3, Bell, FileText, Shield, Settings,
@@ -61,7 +62,7 @@ function NavItem({ item, collapsed }) {
         </span>
       )}
       {isActive && !collapsed && (
-        <span className="nav-active-dot ml-auto w-1.5 h-1.5 rounded-full bg-accent" />
+        <motion.span layoutId="meridian-active-nav" className="nav-active-dot ml-auto w-1.5 h-1.5 rounded-full bg-accent" transition={{ type: 'spring', stiffness: 420, damping: 30 }} />
       )}
       {/* Tooltip for collapsed mode */}
       {collapsed && (

@@ -4,6 +4,7 @@ import { Sidebar, MobileDrawer } from './Sidebar'
 import { TopBar } from './TopBar'
 import { Breadcrumbs } from './Breadcrumbs'
 import { ToastContainer } from '../ui/Toast'
+import AnimatedContent from '../reactbits/AnimatedContent'
 
 export function AppLayout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -24,9 +25,9 @@ export function AppLayout() {
         <main className="flex-1 overflow-y-auto">
           <div className="w-full max-w-[1440px] mx-auto p-4 md:p-8">
             <Breadcrumbs />
-            <div key={pathname} className="route-surface">
+            <AnimatedContent key={pathname} className="route-surface">
               <Outlet />
-            </div>
+            </AnimatedContent>
           </div>
         </main>
       </div>
